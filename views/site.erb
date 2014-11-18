@@ -1,0 +1,19 @@
+
+<h1> Site </h1>
+<form action="">
+	<p><input type="button" value="Change" onclick="Change()"></p>
+</form>
+
+<br>
+<br>
+<% @life_map = @a.start_life(@n,@m) %>
+<% loop do %>
+	<% (0...@n).each do |i| %>
+		<% (0...@m).each do |j| %>
+			<%= @life_map[i][j].to_s %>
+		<% end %>
+		<br>
+	<% end %>
+	
+	<% @life_map = @a.next_step() %>
+<% end %>
