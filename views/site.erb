@@ -1,19 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<h1> This is life</h1>
+		<form action = "/" method = "post">
+			<p> Size </p>
+			N:  <input type = "text" name = "n_count" value = 10>    M: 
+			<input type = "text" name = "m_count" value = 10><br>
+			<br>
+			<input type = "submit" value = "New game">
+		</form>
+		<form action = "/life" method = "post">
+			<input type = "submit" value = "Next generation">
+		</form>
+	</head>
 
-<h1> Site </h1>
-<form action="">
-	<p><input type="button" value="Change" onclick="Change()"></p>
-</form>
-
-<br>
-<br>
-<% @life_map = @a.start_life(@n,@m) %>
-<% loop do %>
-	<% (0...@n).each do |i| %>
-		<% (0...@m).each do |j| %>
-			<%= @life_map[i][j].to_s %>
-		<% end %>
+	<body>
 		<br>
-	<% end %>
-	
-	<% @life_map = @a.next_step() %>
-<% end %>
+		<table>
+			<% (0...@@n).each do |i| %>
+				<tr>
+				<% (0...@@m).each do |j| %>
+					<td style="width: 12px" align = "absmiddle"> 
+						<%= @@life_map[i][j].to_s %></td>
+				<% end %>
+				</tr>
+			<% end %>		
+		</table>	
+	</body>
+</html>
