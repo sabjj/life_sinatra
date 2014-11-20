@@ -1,5 +1,5 @@
 require 'sinatra'
-require 'life_for_site'
+require_relative "life_for_site.rb"
 
  
 set :public_folder, File.dirname(__FILE__) + '/static'

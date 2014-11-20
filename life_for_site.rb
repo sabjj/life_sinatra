@@ -1,4 +1,4 @@
-class My_life 
+class Life_for_site 
 	def neighbors(x, y)
 		num_n=0
 		i=x
@@ -42,19 +42,6 @@ class My_life
 		end	
 	end
 
-	def life_print(life_gen)
-		puts "\e[H\e[2J"
-		
-		(0...@n).each do |i|
-			(0...@m).each do |j|
-				print @life_map[i][j].to_s
-			end 
-			puts
-		end	
-		puts "Generation = "+life_gen.to_s
-		sleep 0.3	
-	end
-
 	def creating_life()
 		@life_map = []
 		(0...@n).each do |i|
@@ -73,6 +60,35 @@ class My_life
 		end
 	end
 
+	def game_over()
+		if  @life_map == @life_map_change 
+			return true
+		end
+	end
+
+	def next_step()
+		num = 0
+		
+		(0...@n).each do |i|
+				(0...@m).each do |j|
+						num = neighbors(i,j)
+						if num == 3 && @life_map[i][j] == '.'
+							@life_map_change[i][j] = 'X'
+						elsif (num < 2 || num > 3) && @life_map[i][j] == 'X'
+							@life_map_change[i][j] = '.'
+						else
+							@life_map_change[i][j] = @life_map[i][j] 
+						end							
+				end 
+		end
+		(0...@n).each do|i|
+			(0...@m).each do|j|
+				@life_map[i][j] = @life_map_change[i][j]
+			end
+		end
+		return @life_map
+	end
+
 	def start_life(x_size, y_size)
 
 		@n = x_size
@@ -81,40 +97,8 @@ class My_life
 
 		creating_life()
 		filling_alive()
-		life_print(0)
-
-		num_prev=0
-		num = 0
-		loop do 
-			gen+=1
-			num = 0
-			(0...@n).each do |i|
-					(0...@m).each do |j|
-							num = neighbors(i,j)
-							if num == 3 && @life_map[i][j] == '.'
-								@life_map_change[i][j] = 'X'
-							elsif (num < 2 || num > 3) && @life_map[i][j] == 'X'
-								@life_map_change[i][j] = '.'
-							else
-								@life_map_change[i][j] = @life_map[i][j] 
-							end							
-					end 
-			end
-			
-			if  @life_map == @life_map_change 
-				puts "\e[H\e[2J"
-				puts "GAME OVER"
-				puts "Generation= "+gen.to_s
-				exit
-			end
-			(0...@n).each do|i|
-				(0...@m).each do|j|
-					@life_map[i][j] = @life_map_change[i][j]
-				end
-			end
-
-			life_print(gen)
-		end
+		return @life_map
+		
 	end
 	#game_of_life(40,70)
 end
